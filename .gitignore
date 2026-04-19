@@ -1,0 +1,23 @@
+# Environment
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Airflow runtime
+logs/*
+!logs/.gitkeep
+plugins/*
+!plugins/.gitkeep
+
+# Docker volumes
+postgres_data/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
