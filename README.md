@@ -282,5 +282,5 @@ extract_weather
 ## 👤 Author
 
 **Nama Kamu**
-- GitHub: [@username](https://github.com/username)
-- LinkedIn: [linkedin.com/in/username](https://linkedin.com/in/username)
+- GitHub: [@rifkyalfitroh58-droid](https://github.com/username)
+- LinkedIn: [linkedin.com/in/RifkyAlfitroh](https://linkedin.com/in/username)
