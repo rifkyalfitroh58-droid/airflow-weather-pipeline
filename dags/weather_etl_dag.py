@@ -3,10 +3,26 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
+from airflow.operators.email import EmailOperator
 
 from utils.extractor import extract_all_cities
 from utils.transformer import transform_task
 from utils.validator import check_quality_branch
+
+def notify_failure(context):
+    """Dipanggil otomatis oleh Airflow ketika task gagal."""
+    task_id   = context["task_instance"].task_id
+    dag_id    = context["task_instance"].dag_id
+    exec_date = context["execution_date"]
+    log_url   = context["task_instance"].log_url
+
+    print(f"""
+    ❌ PIPELINE GAGAL
+    DAG     : {dag_id}
+    Task    : {task_id}
+    Tanggal : {exec_date}
+    Log     : {log_url}
+    """)
 
 # ─── Default args untuk semua task ───────────────────────────────────────────
 default_args = {
@@ -15,6 +31,7 @@ default_args = {
     "retries":          2,                        # Retry 2x kalau gagal
     "retry_delay":      timedelta(minutes=5),     # Tunggu 5 menit sebelum retry
     "email_on_failure": False,
+    "on_failure_callback": notify_failure,
 }
 
 # ─── Definisi DAG ─────────────────────────────────────────────────────────────
